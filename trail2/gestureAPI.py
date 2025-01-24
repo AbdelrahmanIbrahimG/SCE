@@ -20,18 +20,11 @@ def process_frame():
         image = Image.open(io.BytesIO(file.read()))
         cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         gesture_result = get_gesture_from_frame(cv_image)
-        print(gesture_result)
         print('Image received and processed')
+        print(gesture_result)
         
         return jsonify({'gesture': gesture_result}), 200
-        # print('Image received and processed')
-
-        # # Get the color of pixel (1, 1)
-        # pixel_color = image.getpixel((1, 1))
-
-        # print(f'Pixel color at (1, 1): {pixel_color}')
-
-        # return jsonify({'color': pixel_color}), 200
+        
     except Exception as e:
         print(f"Error occurred: {str(e)}")
         return jsonify({'error': str(e)}), 500
