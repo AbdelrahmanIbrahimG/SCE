@@ -59,8 +59,6 @@ public class ARCameraCaptureController : MonoBehaviour
 
     IEnumerator SendFrameToAPI(Texture2D frame)
     {
-        Debug.Log("Sending frame to API");
-
         // Encode texture to PNG
         byte[] imageBytes = frame.EncodeToPNG();
         WWWForm form = new WWWForm();
@@ -70,21 +68,22 @@ public class ARCameraCaptureController : MonoBehaviour
         UnityWebRequest www = UnityWebRequest.Post("http://192.168.1.30:5000", form);
         yield return www.SendWebRequest();
 
-        Debug.Log(www.downloadHandler.text);
+        Debug.Log("API Response: " + www.downloadHandler.text);
+        Debug.Log(www.result == UnityWebRequest.Result.Success);
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("Image sent successfully!");
+            // Debug.Log("Image sent successfully!");
 
             string responseText = www.downloadHandler.text;
             GestureResponse response = JsonUtility.FromJson<GestureResponse>(responseText);
-            Debug.Log("Gesture: " + response);
+
             if (!string.IsNullOrEmpty(response.gesture))
             {
                 lock (gestureQueue)
                 {
                     gestureQueue.Enqueue(response.gesture);
-                    Debug.Log("Gesture: " + response.gesture);
+                    Debug.Log("Gesture2: " + response.gesture);
                 }
             }
         }
