@@ -7,6 +7,8 @@ SCE (See, Control, Enjoy) is an innovative Augmented Reality (AR) application th
 - **AR Integration**: Provides an immersive experience with AR technology.
 - **Cross-Platform Support**: Accessible on mobile devices with a user-friendly interface.
 
+## Demo Video
+A YouTube video to show our app. Watch it [here](https://youtu.be/TDW5tILCVPw)
 ## Technology Stack
 - **Programming Languages**: Python, C#
 - **Frameworks**: 
