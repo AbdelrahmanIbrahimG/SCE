@@ -18,6 +18,11 @@ def process_frame():
 
         file = request.files['frame']
         image = Image.open(io.BytesIO(file.read()))
+
+        # Validate image format
+        if image.format not in ['JPEG', 'JPG', 'PNG']:
+            return jsonify({'error': f'Unsupported format: {image.format}'}), 400
+        
         cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         gesture_result = get_gesture_from_frame(cv_image)
         print('Image received and processed')
